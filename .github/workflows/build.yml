@@ -40,9 +40,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          platforms: linux/amd64,linux/arm64
-          push: false
-          pull: true
+          load: true
           tags: |
             ${{ github.repository }}:latest
             ${{ github.repository }}:debian
@@ -55,7 +53,16 @@ jobs:
       - name: Push Debian Image
         uses: docker/build-push-action@v3
         with:
+          context: .
+          platforms: linux/amd64,linux/arm64
           push: true
+          tags: |
+            ${{ github.repository }}:latest
+            ${{ github.repository }}:debian
+          labels: |
+            org.opencontainers.image.source=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY
+            org.opencontainers.image.revision=$GITHUB_SHA
+            org.opencontainers.image.created=$(date --rfc-3339=seconds)
       # - name: Build alpine image
       #   run: |
       #     docker build . \
