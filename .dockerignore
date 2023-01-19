@@ -1,2 +1,8 @@
+# Mac
+.DS_Store
+# Git
 .git
+.gitignore
+.github
+# Tests
 tests

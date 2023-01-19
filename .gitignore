@@ -1,0 +1,8 @@
+# Optional eslint cache
+.eslintcache
+
+# dotenv environment variables file
+.env
+
+# macOS 
+.DS_Store
