@@ -3,14 +3,15 @@
 ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/jmcombs/sftp/build-publish.yml?logo=github)
 [![Docker Pulls](https://img.shields.io/docker/pulls/jmcombs/sftp)](https://hub.docker.com/r/jmcombs/sftp "Click to view the image on Docker Hub")
 [![Docker Stars](https://img.shields.io/docker/stars/jmcombs/sftp)](https://hub.docker.com/r/jmcombs/sftp "Click to view the image on Docker Hub")
+
 [![Github Issues](https://img.shields.io/github/issues/jmcombs/sftp)](https://github.com/jmcombs/sftp/issues "Click to view or open issues")
 
 ![OpenSSH logo](https://raw.githubusercontent.com/jmcombs/sftp/master/openssh.png "Powered by OpenSSH")
 
 # Supported tags and respective `Dockerfile` links
 
-- [`debian`, `latest` (_Dockerfile_)](https://github.com/atmoz/sftp/blob/master/Dockerfile) ![Docker Image Size (debian)](https://img.shields.io/docker/image-size/atmoz/sftp/debian?label=debian&logo=debian&style=plastic)
-- [`alpine` (_Dockerfile_)](https://github.com/atmoz/sftp/blob/master/Dockerfile-alpine) ![Docker Image Size (alpine)](https://img.shields.io/docker/image-size/atmoz/sftp/alpine?label=alpine&logo=Alpine%20Linux&style=plastic)
+- `debian`, `latest` [![Docker Image Size (Debian)](https://img.shields.io/docker/image-size/jmcombs/sftp/debian?logo=debian)](https://github.com/atmoz/sftp/blob/master/Dockerfile "Dockerfile")
+- `alpine` [![Docker Image Size (Alpine)](https://img.shields.io/docker/image-size/jmcombs/sftp/alpine?logo=alpine%20linux)](https://github.com/atmoz/sftp/blob/master/Dockerfile-alpine "Dockerfile")
 
 # Securely share your files
 
