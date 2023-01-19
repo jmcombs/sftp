@@ -3,7 +3,6 @@
 ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/jmcombs/sftp/build-publish.yml?logo=github)
 [![Docker Pulls](https://img.shields.io/docker/pulls/jmcombs/sftp)](https://hub.docker.com/r/jmcombs/sftp "Click to view the image on Docker Hub")
 [![Docker Stars](https://img.shields.io/docker/stars/jmcombs/sftp)](https://hub.docker.com/r/jmcombs/sftp "Click to view the image on Docker Hub")
-
 [![Github Issues](https://img.shields.io/github/issues/jmcombs/sftp)](https://github.com/jmcombs/sftp/issues "Click to view or open issues")
 
 ![OpenSSH logo](https://raw.githubusercontent.com/jmcombs/sftp/master/openssh.png "Powered by OpenSSH")
