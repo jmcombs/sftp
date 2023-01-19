@@ -15,7 +15,7 @@ on:
       - "master"
 
 jobs:
-  build:
+  build-and-publish:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -81,31 +81,3 @@ jobs:
             org.opencontainers.image.source=$GITHUB_SERVER_URL/${{ github.repository }}
             org.opencontainers.image.revision=$GITHUB_SHA
             org.opencontainers.image.created=$(date --rfc-3339=seconds)
-      # - name: Verify signature
-      #   if: github.ref == 'refs/heads/master'
-      #   uses: atmoz/git-verify-ref@master
-      #   with:
-      #     import-github-users: atmoz
-
-      # - name: Push images to Docker Hub registry
-      #   if: github.ref == 'refs/heads/master'
-      #   run: |
-      #     echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login \
-      #       -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
-
-      #     docker push --all-tags ${{ github.repository }}
-      #     docker logout
-
-      # - name: Push images to GitHub registry
-      #   if: github.ref == 'refs/heads/master'
-      #   run: |
-      #     echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com \
-      #       -u ${{ github.actor }} --password-stdin
-
-      #     TAG_DEBIAN=docker.pkg.github.com/$GITHUB_REPOSITORY/debian
-      #     TAG_ALPINE=docker.pkg.github.com/$GITHUB_REPOSITORY/alpine
-      #     docker tag ${{ github.repository }}:debian $TAG_DEBIAN
-      #     docker tag ${{ github.repository }}:alpine $TAG_ALPINE
-      #     docker push $TAG_DEBIAN
-      #     docker push $TAG_ALPINE
-      #     docker logout docker.pkg.github.com
