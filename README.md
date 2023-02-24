@@ -9,12 +9,12 @@
 
 # Supported tags and respective `Dockerfile` links
 
-- `debian`, `latest` [![Docker Image Size (Debian)](https://img.shields.io/docker/image-size/jmcombs/sftp/debian?logo=debian)](https://github.com/atmoz/sftp/blob/master/Dockerfile "Dockerfile")
-- `alpine` [![Docker Image Size (Alpine)](https://img.shields.io/docker/image-size/jmcombs/sftp/alpine?logo=alpine%20linux)](https://github.com/atmoz/sftp/blob/master/Dockerfile-alpine "Dockerfile")
+- `debian`, `latest` [![Docker Image Size (Debian)](https://img.shields.io/docker/image-size/jmcombs/sftp/debian?logo=debian)](https://github.com/jmcombs/sftp/blob/master/Dockerfile "Dockerfile")
+- `alpine` [![Docker Image Size (Alpine)](https://img.shields.io/docker/image-size/jmcombs/sftp/alpine?logo=alpine%20linux)](https://github.com/jmcombs/sftp/blob/master/Dockerfile-alpine "Dockerfile")
 
 # Securely share your files
 
-Easy to use SFTP ([SSH File Transfer Protocol](https://en.wikipedia.org/wiki/SSH_File_Transfer_Protocol)) server with [OpenSSH](https://en.wikipedia.org/wiki/OpenSSH).
+Easy to use SFTP and SCP ([SSH File Transfer Protocol](https://en.wikipedia.org/wiki/SSH_File_Transfer_Protocol)) server with [OpenSSH](https://en.wikipedia.org/wiki/OpenSSH).
 
 # Usage
 
@@ -39,7 +39,7 @@ Easy to use SFTP ([SSH File Transfer Protocol](https://en.wikipedia.org/wiki/SSH
 ## Simplest docker run example
 
 ```
-docker run -p 22:22 -d atmoz/sftp foo:pass:::upload
+docker run -p 22:22 -d jmcombs/sftp foo:pass:::upload
 ```
 
 User "foo" with password "pass" can login with sftp and upload files to a folder called "upload". No mounted directories or custom UID/GID. Later you can inspect the files and use `--volumes-from` to mount them somewhere else (or see next example).
@@ -51,7 +51,7 @@ Let's mount a directory and set UID:
 ```
 docker run \
     -v <host-dir>/upload:/home/foo/upload \
-    -p 2222:22 -d atmoz/sftp \
+    -p 2222:22 -d jmcombs/sftp \
     foo:pass:1001
 ```
 
@@ -59,7 +59,7 @@ docker run \
 
 ```
 sftp:
-    image: atmoz/sftp
+    image: jmcombs/sftp
     volumes:
         - <host-dir>/upload:/home/foo/upload
     ports:
@@ -77,7 +77,7 @@ The OpenSSH server runs by default on port 22, and in this example, we are forwa
 docker run \
     -v <host-dir>/users.conf:/etc/sftp/users.conf:ro \
     -v mySftpVolume:/home \
-    -p 2222:22 -d atmoz/sftp
+    -p 2222:22 -d jmcombs/sftp
 ```
 
 <host-dir>/users.conf:
@@ -95,7 +95,7 @@ Add `:e` behind password to mark it as encrypted. Use single quotes if using ter
 ```
 docker run \
     -v <host-dir>/share:/home/foo/share \
-    -p 2222:22 -d atmoz/sftp \
+    -p 2222:22 -d jmcombs/sftp \
     'foo:$1$0G2g0GSt$ewU0t6GXG15.0hWoOX8X9.:e:1001'
 ```
 
@@ -111,7 +111,7 @@ docker run \
     -v <host-dir>/id_rsa.pub:/home/foo/.ssh/keys/id_rsa.pub:ro \
     -v <host-dir>/id_other.pub:/home/foo/.ssh/keys/id_other.pub:ro \
     -v <host-dir>/share:/home/foo/share \
-    -p 2222:22 -d atmoz/sftp \
+    -p 2222:22 -d jmcombs/sftp \
     foo::1001
 ```
 
@@ -124,7 +124,7 @@ docker run \
     -v <host-dir>/ssh_host_ed25519_key:/etc/ssh/ssh_host_ed25519_key \
     -v <host-dir>/ssh_host_rsa_key:/etc/ssh/ssh_host_rsa_key \
     -v <host-dir>/share:/home/foo/share \
-    -p 2222:22 -d atmoz/sftp \
+    -p 2222:22 -d jmcombs/sftp \
     foo::1001
 ```
 
@@ -165,7 +165,7 @@ bindmount /data/common /home/peter/common
 bindmount /data/docs /home/peter/docs --read-only
 ```
 
-**NOTE:** Using `mount` requires that your container runs with the `CAP_SYS_ADMIN` capability turned on. [See this answer for more information](https://github.com/atmoz/sftp/issues/60#issuecomment-332909232).
+**NOTE:** Using `mount` requires that your container runs with the `CAP_SYS_ADMIN` capability turned on. [See this answer for more information](https://github.com/jmcombs/sftp/issues/60#issuecomment-332909232).
 
 # What's the difference between Debian and Alpine?
 
