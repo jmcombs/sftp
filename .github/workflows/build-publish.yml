@@ -36,6 +36,12 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build Debian Image for Testing
         uses: docker/build-push-action@v3
         with:
@@ -55,7 +61,7 @@ jobs:
             ${{ github.repository }}:alpine
       - name: Test Alpine Image
         run: tests/run ${{ github.repository }}:alpine
-      - name: Build & Push Debian Image
+      - name: Build & Push Debian Image to Docker Hub
         uses: docker/build-push-action@v3
         with:
           context: .
@@ -68,7 +74,7 @@ jobs:
             org.opencontainers.image.source=$GITHUB_SERVER_URL/${{ github.repository }}
             org.opencontainers.image.revision=$GITHUB_SHA
             org.opencontainers.image.created=$(date --rfc-3339=seconds)
-      - name: Build & Push Alpine Image
+      - name: Build & Push Alpine Image to Docker Hub
         uses: docker/build-push-action@v3
         with:
           context: .
@@ -77,6 +83,32 @@ jobs:
           push: true
           tags: |
             ${{ github.repository }}:alpine
+          labels: |
+            org.opencontainers.image.source=$GITHUB_SERVER_URL/${{ github.repository }}
+            org.opencontainers.image.revision=$GITHUB_SHA
+            org.opencontainers.image.created=$(date --rfc-3339=seconds)
+      - name: Build & Push Debian Image to GitHub Container Registry
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64,linux/arm/v7
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository }}:latest
+            ghcr.io/${{ github.repository }}:debian
+          labels: |
+            org.opencontainers.image.source=$GITHUB_SERVER_URL/${{ github.repository }}
+            org.opencontainers.image.revision=$GITHUB_SHA
+            org.opencontainers.image.created=$(date --rfc-3339=seconds)
+      - name: Build & Push Alpine Image to GitHub Container Registry
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: Dockerfile-alpine
+          platforms: linux/amd64,linux/arm64,linux/arm/v7
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository }}:alpine
           labels: |
             org.opencontainers.image.source=$GITHUB_SERVER_URL/${{ github.repository }}
             org.opencontainers.image.revision=$GITHUB_SHA
