@@ -1,12 +1,13 @@
-FROM debian:bullseye
+FROM debian:bookworm
 
 # Steps done in one RUN layer:
-# - Install packages
+# - Install upgrades and packages
 # - OpenSSH needs /var/run/sshd to run
 # - Remove generic host keys, entrypoint generates unique keys
 RUN apt-get update && \
-    apt-get -y install --no-install-recommends openssh-server && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+    apt-get upgrade -y && \
+    DEBIAN_FRONTEND="noninteractive" apt-get -y install --no-install-recommends openssh-server && \
+    rm -rf /var/lib/apt/lists/* && \
     mkdir -p /var/run/sshd && \
     rm -f /etc/ssh/ssh_host_*key*
 
